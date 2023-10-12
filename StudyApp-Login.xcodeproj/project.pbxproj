@@ -13,6 +13,10 @@
 		A116C1432AD889C500B1DE68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A116C1422AD889C500B1DE68 /* Assets.xcassets */; };
 		A116C1462AD889C500B1DE68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A116C1442AD889C500B1DE68 /* LaunchScreen.storyboard */; };
 		A116C14E2AD88AC800B1DE68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C14D2AD88AC800B1DE68 /* LoginViewController.swift */; };
+		A116C1542AD88F1F00B1DE68 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C1532AD88F1F00B1DE68 /* AuthModel.swift */; };
+		A116C1572AD88F4500B1DE68 /* ValidatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C1562AD88F4500B1DE68 /* ValidatorModel.swift */; };
+		A116C1592AD88FC600B1DE68 /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C1582AD88FC600B1DE68 /* StorageModel.swift */; };
+		A116C15D2AD8BB7200B1DE68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C15C2AD8BB7200B1DE68 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		A116C1452AD889C500B1DE68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A116C1472AD889C500B1DE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A116C14D2AD88AC800B1DE68 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A116C1532AD88F1F00B1DE68 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		A116C1562AD88F4500B1DE68 /* ValidatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorModel.swift; sourceTree = "<group>"; };
+		A116C1582AD88FC600B1DE68 /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
+		A116C15C2AD8BB7200B1DE68 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +64,10 @@
 		A116C1382AD889C400B1DE68 /* StudyApp-Login */ = {
 			isa = PBXGroup;
 			children = (
-				A116C1502AD88AE900B1DE68 /* Models */,
-				A116C1512AD88AEF00B1DE68 /* Views */,
 				A116C1392AD889C400B1DE68 /* AppDelegate.swift */,
 				A116C13B2AD889C400B1DE68 /* SceneDelegate.swift */,
-				A116C13D2AD889C400B1DE68 /* HomeViewController.swift */,
+				A116C1502AD88AE900B1DE68 /* Models */,
+				A116C1512AD88AEF00B1DE68 /* Views */,
 				A116C14F2AD88AD400B1DE68 /* Controllers */,
 				A116C14D2AD88AC800B1DE68 /* LoginViewController.swift */,
 				A116C1422AD889C500B1DE68 /* Assets.xcassets */,
@@ -73,6 +80,8 @@
 		A116C14F2AD88AD400B1DE68 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A116C13D2AD889C400B1DE68 /* HomeViewController.swift */,
+				A116C15C2AD8BB7200B1DE68 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -80,6 +89,9 @@
 		A116C1502AD88AE900B1DE68 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A116C1532AD88F1F00B1DE68 /* AuthModel.swift */,
+				A116C1582AD88FC600B1DE68 /* StorageModel.swift */,
+				A116C1562AD88F4500B1DE68 /* ValidatorModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,8 +175,12 @@
 			files = (
 				A116C14E2AD88AC800B1DE68 /* LoginViewController.swift in Sources */,
 				A116C13E2AD889C400B1DE68 /* HomeViewController.swift in Sources */,
+				A116C1592AD88FC600B1DE68 /* StorageModel.swift in Sources */,
 				A116C13A2AD889C400B1DE68 /* AppDelegate.swift in Sources */,
+				A116C15D2AD8BB7200B1DE68 /* LoginViewController.swift in Sources */,
 				A116C13C2AD889C400B1DE68 /* SceneDelegate.swift in Sources */,
+				A116C1572AD88F4500B1DE68 /* ValidatorModel.swift in Sources */,
+				A116C1542AD88F1F00B1DE68 /* AuthModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
