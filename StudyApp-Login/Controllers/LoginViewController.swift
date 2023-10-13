@@ -9,34 +9,60 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    enum ViewType {
+        case login
+        case signup
+        
+        var title: String {
+            switch self {
+            case .login:
+                return "Login"
+            case .signup:
+                return "signup"
+            }
+        }
+        var switchViewTitle: String {
+            switch self {
+            case .login:
+                return "会員登録はコチラ"
+            case .signup:
+                return "会員の方はコチラ"
+            }
+        }
+    }
+    
     // MARK: - Properties
     
     // FirebaseAuth
     private let authModel: AuthModel!
     // Validator
     private let validatorModel: ValidatorModel!
-
+    private let type: ViewType!
     // MARK: - UIs
     
     // titleLabel
     var titleLabel: UILabel!
+    // nameTextField（signupのみ）
+    var nameTextField: UITextField?
     // emailTextField
     var emailTextField: UITextField!
     // passwordTextField
     var passwordTextField: UITextField!
+    // passwordCheckTextField（signupのみ）
+    var passwordCheckTextField: UITextField?
     // loginButton
     var loginButton: UIButton!
     // switchViewButton
     var switchViewButton: UIButton!
-    // resetPasswordButton
-    var resetPasswordButton: UIButton!
+    // resetPasswordButton（loginのみ）
+    var resetPasswordButton: UIButton?
     
     // MARK: - Initializer
 
-    init(authModel: AuthModel, validatorModel: ValidatorModel) {
+    init(authModel: AuthModel, validatorModel: ValidatorModel, type: ViewType) {
         self.authModel = authModel
         self.validatorModel = validatorModel
-        
+        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,11 +91,19 @@ class LoginViewController: UIViewController {
         // titleLabel
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Login"
+        titleLabel.text = type.title
         titleLabel.textColor = .rt.blue
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
+        
+        // nameTextField（signupのみ）
+        let nameTextField = UITextField()
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.placeholder = "アカウント名"
+//        nameTextField.delegate = self
+        nameTextField.borderStyle = .roundedRect
+        self.nameTextField = nameTextField
         
         // emailTextField
         let emailTextField = UITextField()
@@ -82,10 +116,18 @@ class LoginViewController: UIViewController {
         // passwordTextField
         let passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.placeholder = "メールアドレス"
+        passwordTextField.placeholder = "パスワード"
 //        passwordTextField.delegate = self
         passwordTextField.borderStyle = .roundedRect
         self.passwordTextField = passwordTextField
+        
+        // passwordCheckTextField（signupのみ）
+        let passwordCheckTextField = UITextField()
+        passwordCheckTextField.translatesAutoresizingMaskIntoConstraints = false
+        passwordCheckTextField.placeholder = "パスワード"
+//        passwordTextField.delegate = self
+        passwordCheckTextField.borderStyle = .roundedRect
+        self.passwordCheckTextField = passwordCheckTextField
         
         // loginButton
         let loginButton = UIButton(type: .system)
@@ -99,11 +141,11 @@ class LoginViewController: UIViewController {
         // switchViewButton
         let switchViewButton = UIButton(type: .system)
         switchViewButton.translatesAutoresizingMaskIntoConstraints = false
-        switchViewButton.setTitle("会員登録はコチラ", for: .normal)
+        switchViewButton.setTitle(type.switchViewTitle, for: .normal)
         switchViewButton.tintColor = .rt.lightBlue
         self.switchViewButton = switchViewButton
         
-        // resetPasswordButton
+        // resetPasswordButton（loginのみ）
         let resetPasswordButton = UIButton(type: .system)
         resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         resetPasswordButton.setTitle("パスワード再設定", for: .normal)
@@ -115,16 +157,22 @@ class LoginViewController: UIViewController {
     func addSubviews() {
         // titleLabel
         view.addSubview(titleLabel)
+        // nameTextField（signupのみ）
+
         // emailTextField
         view.addSubview(emailTextField)
         // passwordTextField
         view.addSubview(passwordTextField)
+        // passwordCheckTextField（signupのみ）
+
         // loginButton
         view.addSubview(loginButton)
         // switchViewButton
         view.addSubview(switchViewButton)
-        // resetPasswordButton
-        view.addSubview(resetPasswordButton)
+        // resetPasswordButton（loginのみ）
+        if let resetPasswordButton = resetPasswordButton {
+            view.addSubview(resetPasswordButton)
+        }
     }
     
     // setupLayout: UIコンポーネントのレイアウトを設定
@@ -136,6 +184,8 @@ class LoginViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 80),
             titleLabel.widthAnchor.constraint(equalToConstant: 200),
             
+            // nameTextField（signupのみ）
+
             // emailTextField
             emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
             emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -147,6 +197,8 @@ class LoginViewController: UIViewController {
             passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             passwordTextField.widthAnchor.constraint(equalToConstant: 200),
+            
+            // passwordCheckTextField（signupのみ）
             
             // loginButton
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
@@ -160,11 +212,11 @@ class LoginViewController: UIViewController {
             switchViewButton.heightAnchor.constraint(equalToConstant: 40),
             switchViewButton.widthAnchor.constraint(equalToConstant: 200),
             
-            // resetPasswordButton
-            resetPasswordButton.topAnchor.constraint(equalTo: switchViewButton.bottomAnchor, constant: 40),
-            resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resetPasswordButton.heightAnchor.constraint(equalToConstant: 40),
-            resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
+            // resetPasswordButton（loginのみ）
+//            resetPasswordButton.topAnchor.constraint(equalTo: switchViewButton.bottomAnchor, constant: 40),
+//            resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            resetPasswordButton.heightAnchor.constraint(equalToConstant: 40),
+//            resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
         ])
     }
     
@@ -173,8 +225,8 @@ class LoginViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
         // switchViewButtonのタップ処理
         switchViewButton.addTarget(self, action: #selector(tappedSwitchViewButton), for: .touchUpInside)
-        // resetPasswordButtonのタップ処理
-        resetPasswordButton.addTarget(self, action: #selector(tappedResetPasswordButton), for: .touchUpInside)
+        // resetPasswordButtonのタップ処理（loginのみ）
+        resetPasswordButton?.addTarget(self, action: #selector(tappedResetPasswordButton), for: .touchUpInside)
     }
     
     // MARK: - Actions
