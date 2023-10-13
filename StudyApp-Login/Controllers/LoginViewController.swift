@@ -35,8 +35,8 @@ class LoginViewController: UIViewController {
     
     // FirebaseAuth
     private let authModel: AuthModel!
-    // Validator
-    private let validatorModel: ValidatorModel!
+    // Validator（Interfaceに依存）
+    private let validatorModel: ValidatorModelInterface!
     private let type: ViewType!
     
     // MARK: - UIs
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Initializer
 
-    init(authModel: AuthModel, validatorModel: ValidatorModel, type: ViewType) {
+    init(authModel: AuthModel, validatorModel: ValidatorModelInterface, type: ViewType) {
         self.authModel = authModel
         self.validatorModel = validatorModel
         self.type = type
@@ -267,12 +267,33 @@ class LoginViewController: UIViewController {
     
     // loginButtonのタップ処理
     @objc func tappedLoginButton() {
-        print(#function)
+        
+        let name = nameTextField?.text
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        let passwordForCheck = passwordCheckTextField?.text
+        
+        if type == .login {
+            let nameResult = validatorModel.validateName(name: name)
+            let emailResult = validatorModel.validateEmail(email: email)
+            let passwordResult = validatorModel.validatePassword(password: password, passwordForCheck: passwordForCheck)
+            
+            // TODO: 現段階仕様ではsignupのpasswordResultのみチェックする（改修予定）
+            if case .invalid(let error) = passwordResult {
+                // アラートを表示する
+                return
+            }
+            
+            // Auth認証
+            // 遷移処理
+        } else {
+            // Auth認証
+            // 遷移処理
+        }
     }
     
     // switchViewButtonのタップ処理
     @objc func tappedSwitchViewButton() {
-        print(#function)
         
         // ログイン画面 <-> サインアップ画面の遷移処理
         if type == .login {
