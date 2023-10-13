@@ -16,6 +16,8 @@
 		A116C15D2AD8BB7200B1DE68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C15C2AD8BB7200B1DE68 /* LoginViewController.swift */; };
 		A116C15F2AD8CC3800B1DE68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A116C1442AD889C500B1DE68 /* LaunchScreen.storyboard */; };
 		A116C1602AD8CC3C00B1DE68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A116C1422AD889C500B1DE68 /* Assets.xcassets */; };
+		A116C1632AD8D13F00B1DE68 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C1622AD8D13F00B1DE68 /* UIColor+.swift */; };
+		A116C1652AD8D87700B1DE68 /* RingTechCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A116C1642AD8D87700B1DE68 /* RingTechCompatible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		A116C1562AD88F4500B1DE68 /* ValidatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorModel.swift; sourceTree = "<group>"; };
 		A116C1582AD88FC600B1DE68 /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 		A116C15C2AD8BB7200B1DE68 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A116C1622AD8D13F00B1DE68 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		A116C1642AD8D87700B1DE68 /* RingTechCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingTechCompatible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		A116C1382AD889C400B1DE68 /* StudyApp-Login */ = {
 			isa = PBXGroup;
 			children = (
+				A116C1612AD8D08200B1DE68 /* Extensions */,
 				A116C1392AD889C400B1DE68 /* AppDelegate.swift */,
 				A116C13B2AD889C400B1DE68 /* SceneDelegate.swift */,
 				A116C1502AD88AE900B1DE68 /* Models */,
@@ -98,6 +103,15 @@
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A116C1612AD8D08200B1DE68 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A116C1622AD8D13F00B1DE68 /* UIColor+.swift */,
+				A116C1642AD8D87700B1DE68 /* RingTechCompatible.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +185,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A116C13E2AD889C400B1DE68 /* HomeViewController.swift in Sources */,
+				A116C1632AD8D13F00B1DE68 /* UIColor+.swift in Sources */,
 				A116C1592AD88FC600B1DE68 /* StorageModel.swift in Sources */,
+				A116C1652AD8D87700B1DE68 /* RingTechCompatible.swift in Sources */,
 				A116C13A2AD889C400B1DE68 /* AppDelegate.swift in Sources */,
 				A116C15D2AD8BB7200B1DE68 /* LoginViewController.swift in Sources */,
 				A116C13C2AD889C400B1DE68 /* SceneDelegate.swift in Sources */,

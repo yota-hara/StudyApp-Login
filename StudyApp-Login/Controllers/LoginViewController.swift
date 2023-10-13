@@ -50,6 +50,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let variable = 1
+        let nameSpaceVariable = variable.rt.isZero
         view.backgroundColor = .white
         
         setupUI()
