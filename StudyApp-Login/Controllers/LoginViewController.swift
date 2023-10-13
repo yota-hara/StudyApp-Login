@@ -38,7 +38,11 @@ class LoginViewController: UIViewController {
     // Validator
     private let validatorModel: ValidatorModel!
     private let type: ViewType!
+    
     // MARK: - UIs
+    
+    // textFieldsStackView（TextFieldをまとめて格納するStackView）
+    var textFieldsStackView: UIStackView!
     
     // titleLabel
     var titleLabel: UILabel!
@@ -96,14 +100,16 @@ class LoginViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
-        
+                
         // nameTextField（signupのみ）
-        let nameTextField = UITextField()
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.placeholder = "アカウント名"
-//        nameTextField.delegate = self
-        nameTextField.borderStyle = .roundedRect
-        self.nameTextField = nameTextField
+        if type == .signup {
+            let nameTextField = UITextField()
+            nameTextField.translatesAutoresizingMaskIntoConstraints = false
+            nameTextField.placeholder = "アカウント名"
+//            nameTextField.delegate = self
+            nameTextField.borderStyle = .roundedRect
+            self.nameTextField = nameTextField
+        }
         
         // emailTextField
         let emailTextField = UITextField()
@@ -122,12 +128,37 @@ class LoginViewController: UIViewController {
         self.passwordTextField = passwordTextField
         
         // passwordCheckTextField（signupのみ）
-        let passwordCheckTextField = UITextField()
-        passwordCheckTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordCheckTextField.placeholder = "パスワード"
-//        passwordTextField.delegate = self
-        passwordCheckTextField.borderStyle = .roundedRect
-        self.passwordCheckTextField = passwordCheckTextField
+        if type == .signup {
+            let passwordCheckTextField = UITextField()
+            passwordCheckTextField.translatesAutoresizingMaskIntoConstraints = false
+            passwordCheckTextField.placeholder = "パスワード（確認用）"
+//            passwordTextField.delegate = self
+            passwordCheckTextField.borderStyle = .roundedRect
+            self.passwordCheckTextField = passwordCheckTextField
+        }
+        
+        // textFieldsStackView（TextFieldをまとめて格納するStackView）
+        var textFieldsStackView = UIStackView()
+        if type == .login {
+            textFieldsStackView = UIStackView(arrangedSubviews: [
+                emailTextField,
+                passwordTextField,
+            ])
+        } else if type == .signup,
+                  let nameTextField = self.nameTextField,
+                  let passwordCheckTextField = self.passwordCheckTextField {
+            textFieldsStackView = UIStackView(arrangedSubviews: [
+                nameTextField,
+                emailTextField,
+                passwordTextField,
+                passwordCheckTextField
+            ])
+        }
+        textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
+        textFieldsStackView.axis = .vertical
+        textFieldsStackView.distribution = .equalSpacing
+        textFieldsStackView.spacing = 40
+        self.textFieldsStackView = textFieldsStackView
         
         // loginButton
         let loginButton = UIButton(type: .system)
@@ -146,11 +177,13 @@ class LoginViewController: UIViewController {
         self.switchViewButton = switchViewButton
         
         // resetPasswordButton（loginのみ）
-        let resetPasswordButton = UIButton(type: .system)
-        resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
-        resetPasswordButton.setTitle("パスワード再設定", for: .normal)
-        resetPasswordButton.tintColor = .rt.lightBlue
-        self.resetPasswordButton = resetPasswordButton
+        if type == .login {
+            let resetPasswordButton = UIButton(type: .system)
+            resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+            resetPasswordButton.setTitle("パスワード再設定", for: .normal)
+            resetPasswordButton.tintColor = .rt.lightBlue
+            self.resetPasswordButton = resetPasswordButton
+        }
     }
     
     // addSubviews: 初期化したUIコンポーネントをviewに追加
@@ -158,19 +191,18 @@ class LoginViewController: UIViewController {
         // titleLabel
         view.addSubview(titleLabel)
         // nameTextField（signupのみ）
-
         // emailTextField
-        view.addSubview(emailTextField)
         // passwordTextField
-        view.addSubview(passwordTextField)
         // passwordCheckTextField（signupのみ）
-
+        // textFieldsStackView
+        view.addSubview(textFieldsStackView)
         // loginButton
         view.addSubview(loginButton)
         // switchViewButton
         view.addSubview(switchViewButton)
         // resetPasswordButton（loginのみ）
-        if let resetPasswordButton = resetPasswordButton {
+        if type == .login,
+           let resetPasswordButton = resetPasswordButton {
             view.addSubview(resetPasswordButton)
         }
     }
@@ -185,23 +217,16 @@ class LoginViewController: UIViewController {
             titleLabel.widthAnchor.constraint(equalToConstant: 200),
             
             // nameTextField（signupのみ）
-
             // emailTextField
-            emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
-            emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailTextField.heightAnchor.constraint(equalToConstant: 40),
-            emailTextField.widthAnchor.constraint(equalToConstant: 200),
-            
             // passwordTextField
-            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 40),
-            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 40),
-            passwordTextField.widthAnchor.constraint(equalToConstant: 200),
-            
             // passwordCheckTextField（signupのみ）
+            // textFieldsStackView
+            textFieldsStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            textFieldsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textFieldsStackView.widthAnchor.constraint(equalToConstant: 200),
             
             // loginButton
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
+            loginButton.topAnchor.constraint(equalTo: textFieldsStackView.bottomAnchor, constant: 40),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 40),
             loginButton.widthAnchor.constraint(equalToConstant: 200),
@@ -211,13 +236,18 @@ class LoginViewController: UIViewController {
             switchViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             switchViewButton.heightAnchor.constraint(equalToConstant: 40),
             switchViewButton.widthAnchor.constraint(equalToConstant: 200),
-            
-            // resetPasswordButton（loginのみ）
-//            resetPasswordButton.topAnchor.constraint(equalTo: switchViewButton.bottomAnchor, constant: 40),
-//            resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            resetPasswordButton.heightAnchor.constraint(equalToConstant: 40),
-//            resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
         ])
+        
+        // resetPasswordButton（loginのみ）
+        if type == .login,
+           let resetPasswordButton = self.resetPasswordButton {
+            NSLayoutConstraint.activate([
+                resetPasswordButton.topAnchor.constraint(equalTo: switchViewButton.bottomAnchor, constant: 40),
+                resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                resetPasswordButton.heightAnchor.constraint(equalToConstant: 40),
+                resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
+            ])
+        }
     }
     
     func addTargets() {
@@ -239,6 +269,16 @@ class LoginViewController: UIViewController {
     // switchViewButtonのタップ処理
     @objc func tappedSwitchViewButton() {
         print(#function)
+        
+        // ログイン画面 <-> サインアップ画面の遷移処理
+        if type == .login {
+            let vc = LoginViewController(authModel: self.authModel, validatorModel: self.validatorModel, type: .signup)
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            present(vc, animated: true)
+        } else {
+            dismiss(animated: true)
+        }
     }
     
     // resetPasswordButtonのタップ処理
