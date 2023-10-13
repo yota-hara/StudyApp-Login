@@ -50,13 +50,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let variable = 1
-        let nameSpaceVariable = variable.rt.isZero
-        view.backgroundColor = .white
+        view.backgroundColor = .rt.white
         
         setupUI()
         addSubviews()
         setupLayout()
+        addTargets()
     }
     
     // MARK: - Setup
@@ -67,7 +66,7 @@ class LoginViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Login"
-        titleLabel.textColor = .blue
+        titleLabel.textColor = .rt.blue
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
@@ -92,8 +91,8 @@ class LoginViewController: UIViewController {
         let loginButton = UIButton(type: .system)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.setTitle("ログイン", for: .normal)
-        loginButton.backgroundColor = .systemTeal
-        loginButton.tintColor = .white
+        loginButton.backgroundColor = .rt.lightBlue
+        loginButton.tintColor = .rt.white
         loginButton.layer.cornerRadius = 8
         self.loginButton = loginButton
         
@@ -101,14 +100,14 @@ class LoginViewController: UIViewController {
         let switchViewButton = UIButton(type: .system)
         switchViewButton.translatesAutoresizingMaskIntoConstraints = false
         switchViewButton.setTitle("会員登録はコチラ", for: .normal)
-        switchViewButton.tintColor = .systemTeal
+        switchViewButton.tintColor = .rt.lightBlue
         self.switchViewButton = switchViewButton
         
         // resetPasswordButton
         let resetPasswordButton = UIButton(type: .system)
         resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         resetPasswordButton.setTitle("パスワード再設定", for: .normal)
-        resetPasswordButton.tintColor = .systemTeal
+        resetPasswordButton.tintColor = .rt.lightBlue
         self.resetPasswordButton = resetPasswordButton
     }
     
@@ -169,21 +168,30 @@ class LoginViewController: UIViewController {
         ])
     }
     
+    func addTargets() {
+        // loginButtonのタップ処理
+        loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
+        // switchViewButtonのタップ処理
+        switchViewButton.addTarget(self, action: #selector(tappedSwitchViewButton), for: .touchUpInside)
+        // resetPasswordButtonのタップ処理
+        resetPasswordButton.addTarget(self, action: #selector(tappedResetPasswordButton), for: .touchUpInside)
+    }
+    
     // MARK: - Actions
     
     // loginButtonのタップ処理
-    func tappedloginButton() {
-        
+    @objc func tappedLoginButton() {
+        print(#function)
     }
     
     // switchViewButtonのタップ処理
-    func tappedSwitchViewButton() {
-        
+    @objc func tappedSwitchViewButton() {
+        print(#function)
     }
     
     // resetPasswordButtonのタップ処理
-    func tappedResetPasswordButton() {
-        
+    @objc func tappedResetPasswordButton() {
+        print(#function)
     }
     
     // MARK: - Delegate: TextField
