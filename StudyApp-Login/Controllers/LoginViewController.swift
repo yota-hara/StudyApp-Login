@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
             case .login:
                 return "Login"
             case .signup:
-                return "signup"
+                return "Signup"
             }
         }
         var switchViewTitle: String {
@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .rt.white
+        view.backgroundColor = .rt.gray20
         
         setupUI()
         addSubviews()
@@ -273,22 +273,28 @@ class LoginViewController: UIViewController {
         let password = passwordTextField.text
         let passwordForCheck = passwordCheckTextField?.text
         
-        if type == .login {
+        if type == .signup {
             let nameResult = validatorModel.validateName(name: name)
             let emailResult = validatorModel.validateEmail(email: email)
             let passwordResult = validatorModel.validatePassword(password: password, passwordForCheck: passwordForCheck)
             
             // TODO: 現段階仕様ではsignupのpasswordResultのみチェックする（改修予定）
-            if case .invalid(let error) = passwordResult {
+            if case .invalid(let error as PasswordError) = passwordResult {
+                let message = error.message
                 // アラートを表示する
+                rt.showOneButtonAlert(title: "", message: message)
                 return
             }
             
             // Auth認証
-            // 遷移処理
+            // 遷移処理（仮）
+            let vc = HomeViewController()
+            present(vc, animated: true)
         } else {
             // Auth認証
-            // 遷移処理
+            // 遷移処理（仮）
+            let vc = HomeViewController()
+            present(vc, animated: true)
         }
     }
     
@@ -308,7 +314,12 @@ class LoginViewController: UIViewController {
     
     // resetPasswordButtonのタップ処理
     @objc func tappedResetPasswordButton() {
-        print(#function)
+        
+        // email入力フォーム付きのアラートを表示する
+        rt.showAlertWithTextField(title: "パスワード再設定", message: "入力されたメールアドレスに再設定用のメールを送信します", placeholder: "メールアドレス", okButtonTitle: "送信") { email in
+            
+            // Auth処理
+        }
     }
     
     // view上をタップしたときの処理
