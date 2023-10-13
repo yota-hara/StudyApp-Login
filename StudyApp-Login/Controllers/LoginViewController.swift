@@ -104,35 +104,39 @@ class LoginViewController: UIViewController {
         // nameTextField（signupのみ）
         if type == .signup {
             let nameTextField = UITextField()
+            nameTextField.tag = 1
             nameTextField.translatesAutoresizingMaskIntoConstraints = false
             nameTextField.placeholder = "アカウント名"
-//            nameTextField.delegate = self
+            nameTextField.delegate = self
             nameTextField.borderStyle = .roundedRect
             self.nameTextField = nameTextField
         }
         
         // emailTextField
         let emailTextField = UITextField()
+        emailTextField.tag = 2
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "メールアドレス"
-//        emailTextField.delegate = self
+        emailTextField.delegate = self
         emailTextField.borderStyle = .roundedRect
         self.emailTextField = emailTextField
         
         // passwordTextField
         let passwordTextField = UITextField()
+        passwordTextField.tag = 3
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "パスワード"
-//        passwordTextField.delegate = self
+        passwordTextField.delegate = self
         passwordTextField.borderStyle = .roundedRect
         self.passwordTextField = passwordTextField
         
         // passwordCheckTextField（signupのみ）
         if type == .signup {
             let passwordCheckTextField = UITextField()
+            passwordCheckTextField.tag = 4
             passwordCheckTextField.translatesAutoresizingMaskIntoConstraints = false
             passwordCheckTextField.placeholder = "パスワード（確認用）"
-//            passwordTextField.delegate = self
+            passwordCheckTextField.delegate = self
             passwordCheckTextField.borderStyle = .roundedRect
             self.passwordCheckTextField = passwordCheckTextField
         }
@@ -286,5 +290,33 @@ class LoginViewController: UIViewController {
         print(#function)
     }
     
-    // MARK: - Delegate: TextField
+    // view上をタップしたときの処理
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        // すべてのキーボードからフォーカスを外してキーボードを閉じる
+        for i in 1...4 {
+            if let textField = view.viewWithTag(i) {
+                textField.resignFirstResponder()
+            }
+        }
+    }
+    
+}
+
+// MARK: - UITextFieldDelegate
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        // returnが押されたtextFieldへのフォーカスを解除（キーボードを閉じる）
+        textField.resignFirstResponder()
+        
+        let nextTag = textField.tag + 1
+        if let nextTextField = self.view.viewWithTag(nextTag) {
+            // 次のタグの指定するtextFieldがあればフォーカスを設定（キーボードを出す）
+            nextTextField.becomeFirstResponder()
+        }
+        return true
+    }
 }
