@@ -53,6 +53,8 @@ protocol AuthModelInterface {
     func logout() async -> Bool
     // パスワード再設定
     func resetPassword(email: String) async -> Bool
+    // ログインユーザーのuidの取得
+    func getCurrentUID() -> String?
 }
 
 // MARK: - AuthModel
@@ -161,6 +163,17 @@ class AuthModel: AuthModelInterface {
             print("\(#function): \(error.localizedDescription)")
     
             return false
+        }
+    }
+    
+    // ログインユーザーのuidの取得
+    func getCurrentUID() -> String? {
+        
+        if let user = Auth.auth().currentUser {
+            return user.uid
+            
+        } else {
+            return nil
         }
     }
 }

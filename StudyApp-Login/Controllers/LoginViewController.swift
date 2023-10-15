@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
     // MARK: - Properties
     
     // FirebaseAuth
-    private let authModel: AuthModel!
+    private let authModel: AuthModelInterface!
     // Validator（Interfaceに依存）
     private let validatorModel: ValidatorModelInterface!
     private let type: ViewType!
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Initializer
 
-    init(authModel: AuthModel, validatorModel: ValidatorModelInterface, type: ViewType) {
+    init(authModel: AuthModelInterface, validatorModel: ValidatorModelInterface, type: ViewType) {
         self.authModel = authModel
         self.validatorModel = validatorModel
         self.type = type
@@ -291,8 +291,9 @@ class LoginViewController: UIViewController {
                 do {
                     try await self.authModel.createUser(name: name ?? "", email: email ?? "", password: password ?? "")
                     
-                    // 遷移処理（仮）
-                    let vc = HomeViewController()
+                    let vc = HomeViewController(authModel: authModel, databaseModel: DatabaseModel())
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .coverVertical
                     present(vc, animated: true)
                     
                 } catch let error as AuthError {
@@ -307,8 +308,9 @@ class LoginViewController: UIViewController {
                 do {
                     try await self.authModel.login(email: email ?? "", password: password ?? "")
                     
-                    // 遷移処理（仮）
-                    let vc = HomeViewController()
+                    let vc = HomeViewController(authModel: authModel, databaseModel: DatabaseModel())
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .coverVertical
                     present(vc, animated: true)
                     
                 } catch let error as AuthError {
