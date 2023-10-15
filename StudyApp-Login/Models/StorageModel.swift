@@ -7,6 +7,6 @@
 
 import Foundation
 
-class StorageModel {
+class DatabaseManagerModel {
     
 }

@@ -287,14 +287,35 @@ class LoginViewController: UIViewController {
             }
             
             // Auth認証
-            // 遷移処理（仮）
-            let vc = HomeViewController()
-            present(vc, animated: true)
+            Task {
+                do {
+                    try await self.authModel.createUser(name: name ?? "", email: email ?? "", password: password ?? "")
+                    
+                    // 遷移処理（仮）
+                    let vc = HomeViewController()
+                    present(vc, animated: true)
+                    
+                } catch let error as AuthError {
+                    let message = error.title
+                    rt.showOneButtonAlert(title: "会員登録失敗", message: message)
+                }
+            }
+
         } else {
             // Auth認証
-            // 遷移処理（仮）
-            let vc = HomeViewController()
-            present(vc, animated: true)
+            Task {
+                do {
+                    try await self.authModel.login(email: email ?? "", password: password ?? "")
+                    
+                    // 遷移処理（仮）
+                    let vc = HomeViewController()
+                    present(vc, animated: true)
+                    
+                } catch let error as AuthError {
+                    let message = error.title
+                    rt.showOneButtonAlert(title: "ログイン失敗", message: message)
+                }
+            }
         }
     }
     
@@ -318,7 +339,17 @@ class LoginViewController: UIViewController {
         // email入力フォーム付きのアラートを表示する
         rt.showAlertWithTextField(title: "パスワード再設定", message: "入力されたメールアドレスに再設定用のメールを送信します", placeholder: "メールアドレス", okButtonTitle: "送信") { email in
             
+            guard let email = email else {
+                return self.rt.showOneButtonAlert(title: "パスワード再設定", message: "メールの送信に失敗しました")
+            }
             // Auth処理
+            Task {
+                if await self.authModel.resetPassword(email: email)  {
+                    self.rt.showOneButtonAlert(title: "パスワード再設定", message: "メールを送信しました")
+                } else {
+                    self.rt.showOneButtonAlert(title: "パスワード再設定", message: "メールの送信に失敗しました")
+                }
+            }
         }
     }
     
