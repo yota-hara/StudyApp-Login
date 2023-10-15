@@ -59,14 +59,21 @@ protocol AuthModelInterface {
 
 class AuthModel: AuthModelInterface {
         
+    let databaseModel: DatabaseModelInterface
+    
+    init(databaseModel: DatabaseModelInterface = DatabaseModel()) {
+        self.databaseModel = databaseModel
+    }
+    
     // 会員登録（サインアップ）
     func createUser(name: String, email: String, password: String) async throws {
         
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            let userId = result.user.uid
+            let uid = result.user.uid
             
             // TODO: - Firestoreにアカウント名（name）を保存する
+            await databaseModel.saveUser(uid: uid, name: name, email: email)
                         
         } catch {
             
