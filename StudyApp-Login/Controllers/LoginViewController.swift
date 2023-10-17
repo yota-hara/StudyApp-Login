@@ -46,7 +46,8 @@ class LoginViewController: UIViewController {
     
     // textFieldsStackView（TextFieldをまとめて格納するStackView）
     var textFieldsStackView: UIStackView!
-    
+    // backgroundView
+    var backgroundView: UIView!
     // titleLabel
     var titleLabel: UILabel!
     // nameTextField（signupのみ）
@@ -155,6 +156,11 @@ class LoginViewController: UIViewController {
     
     // setupUI: UIコンポーネントの初期化
     func setupUI() {
+        // backgroundView
+        let backgroundView = GradientAnimationView(frame: view.frame)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundView = backgroundView
+        
         // titleLabel
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -255,6 +261,8 @@ class LoginViewController: UIViewController {
     
     // addSubviews: 初期化したUIコンポーネントをviewに追加
     func addSubviews() {
+        // backgroundView
+        view.addSubview(backgroundView)
         // titleLabel
         view.addSubview(titleLabel)
         // nameTextField（signupのみ）

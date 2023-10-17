@@ -26,6 +26,7 @@
 		A1B003E02ADE8CD500228768 /* DebugFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */; };
 		A1B003E22ADEFA1900228768 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E12ADEFA1900228768 /* String+.swift */; };
 		A1B003E42ADF0FEF00228768 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E32ADF0FEF00228768 /* IndicatorView.swift */; };
+		A1B003E62ADF267D00228768 /* GradientAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E52ADF267D00228768 /* GradientAnimationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFloatingButton.swift; sourceTree = "<group>"; };
 		A1B003E12ADEFA1900228768 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A1B003E32ADF0FEF00228768 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		A1B003E52ADF267D00228768 /* GradientAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientAnimationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		A116C1512AD88AEF00B1DE68 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1B003E52ADF267D00228768 /* GradientAnimationView.swift */,
 				A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */,
 				A1B003E32ADF0FEF00228768 /* IndicatorView.swift */,
 			);
@@ -227,6 +230,7 @@
 				A1B003E22ADEFA1900228768 /* String+.swift in Sources */,
 				A116C1572AD88F4500B1DE68 /* ValidatorModel.swift in Sources */,
 				A116C1542AD88F1F00B1DE68 /* AuthModel.swift in Sources */,
+				A1B003E62ADF267D00228768 /* GradientAnimationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
