@@ -24,6 +24,8 @@
 		A116C1772ADB460900B1DE68 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A116C1762ADB460900B1DE68 /* FirebaseFirestore */; };
 		A116C1792ADC36F900B1DE68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A116C1782ADC36F900B1DE68 /* GoogleService-Info.plist */; };
 		A1B003DE2ADE831B00228768 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003DD2ADE831B00228768 /* RootViewController.swift */; };
+		A1B003E02ADE8CD500228768 /* DebugFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */; };
+		A1B003E22ADEFA1900228768 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E12ADEFA1900228768 /* String+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		A116C1662AD925D500B1DE68 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A116C1782ADC36F900B1DE68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1B003DD2ADE831B00228768 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFloatingButton.swift; sourceTree = "<group>"; };
+		A1B003E12ADEFA1900228768 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 		A116C1512AD88AEF00B1DE68 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,9 +127,10 @@
 		A116C1612AD8D08200B1DE68 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A116C1642AD8D87700B1DE68 /* RingTechCompatible.swift */,
 				A116C1622AD8D13F00B1DE68 /* UIColor+.swift */,
 				A116C1662AD925D500B1DE68 /* UIViewController+.swift */,
-				A116C1642AD8D87700B1DE68 /* RingTechCompatible.swift */,
+				A1B003E12ADEFA1900228768 /* String+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -215,8 +221,10 @@
 				A116C1652AD8D87700B1DE68 /* RingTechCompatible.swift in Sources */,
 				A116C13A2AD889C400B1DE68 /* AppDelegate.swift in Sources */,
 				A1B003DE2ADE831B00228768 /* RootViewController.swift in Sources */,
+				A1B003E02ADE8CD500228768 /* DebugFloatingButton.swift in Sources */,
 				A116C15D2AD8BB7200B1DE68 /* LoginViewController.swift in Sources */,
 				A116C13C2AD889C400B1DE68 /* SceneDelegate.swift in Sources */,
+				A1B003E22ADEFA1900228768 /* String+.swift in Sources */,
 				A116C1572AD88F4500B1DE68 /* ValidatorModel.swift in Sources */,
 				A116C1542AD88F1F00B1DE68 /* AuthModel.swift in Sources */,
 			);

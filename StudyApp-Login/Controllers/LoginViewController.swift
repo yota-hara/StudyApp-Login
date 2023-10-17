@@ -90,6 +90,10 @@ class LoginViewController: UIViewController {
         setupLayout()
         addTargets()
         
+        #if DEBUG
+        addDebugButton()
+        #endif
+        
         // 通知の追加
         addKeyboardNotifications()
     }
@@ -320,6 +324,42 @@ class LoginViewController: UIViewController {
         switchViewButton.addTarget(self, action: #selector(tappedSwitchViewButton), for: .touchUpInside)
         // resetPasswordButtonのタップ処理（loginのみ）
         resetPasswordButton?.addTarget(self, action: #selector(tappedResetPasswordButton), for: .touchUpInside)
+    }
+    
+    // DEBUG時の簡易入力ボタンの設置
+    func addDebugButton() {
+        
+        let debugButton = DebugFloatingButton(frame: .zero, title: "簡易入力")
+        view.addSubview(debugButton)
+        
+        NSLayoutConstraint.activate([
+            debugButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            debugButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            debugButton.widthAnchor.constraint(equalToConstant: 150),
+            debugButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        debugButton.addTarget(self, action: #selector(tappedDebugButton), for: .touchUpInside)
+    }
+    
+    // debugButtonタップ時の簡易入力処理
+    @objc func tappedDebugButton() {
+        let password = "test1234"
+        
+        if type == .login {
+            // ログイン用のアカウントデータはAuthentificationで作成しておく
+            emailTextField.text = "test@example.com"
+            passwordTextField.text = password
+        } else {
+            let name = "test" + String.rt.generateRandomAlphanumerics(length: 4)
+            let domain = "@example.com"
+            let email = name + domain
+            
+            nameTextField?.text = name
+            emailTextField.text = email
+            passwordTextField.text = password
+            passwordCheckTextField?.text = password
+        }
     }
     
     // MARK: - Actions
