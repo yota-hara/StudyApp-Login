@@ -41,6 +41,27 @@ extension RingTech where Base: UIViewController {
         
         base.present(alert, animated: true, completion: nil)
     }
+    
+    func startIndicator() {
+        let indicator = IndicatorView(frame: .zero)
+        indicator.tag = 999
+        
+        base.view.addSubview(indicator)
+
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: base.view.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: base.view.centerYAnchor),
+            indicator.widthAnchor.constraint(equalToConstant: 150),
+            indicator.heightAnchor.constraint(equalToConstant: 150)
+        ])
+    }
+    
+    func stopIndicator() {
+        
+        if let indicator = base.view.viewWithTag(999) as? IndicatorView {
+            indicator.removeFromSuperview()
+        }
+    }
 }
 
 

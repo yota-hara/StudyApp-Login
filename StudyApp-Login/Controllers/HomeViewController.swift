@@ -143,7 +143,10 @@ class HomeViewController: UIViewController {
     // logoutButtonタップ処理
     @objc func tappedLogoutButton() {
         Task {
+            rt.startIndicator()
             if await authModel.logout() {
+                rt.stopIndicator()
+                
                 moveToLoginVC()
             }
         }

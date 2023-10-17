@@ -388,7 +388,9 @@ class LoginViewController: UIViewController {
             // Auth認証
             Task {
                 do {
+                    rt.startIndicator()
                     try await self.authModel.createUser(name: name ?? "", email: email ?? "", password: password ?? "")
+                    rt.stopIndicator()
                     
                     let vc = HomeViewController(authModel: authModel, databaseModel: DatabaseModel())
                     vc.modalPresentationStyle = .fullScreen
@@ -396,6 +398,8 @@ class LoginViewController: UIViewController {
                     present(vc, animated: true)
                     
                 } catch let error as AuthError {
+                    rt.stopIndicator()
+                    
                     let message = error.title
                     rt.showOneButtonAlert(title: "会員登録失敗", message: message)
                 }
@@ -405,7 +409,9 @@ class LoginViewController: UIViewController {
             // Auth認証
             Task {
                 do {
+                    rt.startIndicator()
                     try await self.authModel.login(email: email ?? "", password: password ?? "")
+                    rt.stopIndicator()
                     
                     let vc = HomeViewController(authModel: authModel, databaseModel: DatabaseModel())
                     vc.modalPresentationStyle = .fullScreen
@@ -413,6 +419,8 @@ class LoginViewController: UIViewController {
                     present(vc, animated: true)
                     
                 } catch let error as AuthError {
+                    rt.stopIndicator()
+                    
                     let message = error.title
                     rt.showOneButtonAlert(title: "ログイン失敗", message: message)
                 }
@@ -445,9 +453,14 @@ class LoginViewController: UIViewController {
             }
             // Auth処理
             Task {
+                self.rt.startIndicator()
                 if await self.authModel.resetPassword(email: email)  {
+                    self.rt.stopIndicator()
+                    
                     self.rt.showOneButtonAlert(title: "パスワード再設定", message: "メールを送信しました")
                 } else {
+                    self.rt.stopIndicator()
+
                     self.rt.showOneButtonAlert(title: "パスワード再設定", message: "メールの送信に失敗しました")
                 }
             }
