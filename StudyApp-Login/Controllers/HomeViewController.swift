@@ -45,9 +45,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.rt.yellow
-        // auth認証の確認
-        checkAuthStatus()
+        view.backgroundColor = UIColor.rt.lightBlue
+
         
         setupUI()
         addSubviews()
@@ -55,7 +54,13 @@ class HomeViewController: UIViewController {
 
         logoutButton.addTarget(self, action: #selector(tappedLogoutButton), for: .touchUpInside)
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // auth認証の確認
+        checkAuthStatus()
+    }
 
     // MARK: - Setup
     
@@ -65,7 +70,7 @@ class HomeViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Home"
-        titleLabel.textColor = .rt.blue
+        titleLabel.textColor = .rt.black
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
@@ -74,16 +79,16 @@ class HomeViewController: UIViewController {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = accountName
-        nameLabel.textColor = .rt.navy
+        nameLabel.textColor = .rt.white
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.systemFont(ofSize: 20)
+        nameLabel.font = UIFont.systemFont(ofSize: 24)
         self.nameLabel = nameLabel
         
         // logoutButton
         let logoutButton = UIButton(type: .system)
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         logoutButton.setTitle("ログアウト", for: .normal)
-        logoutButton.backgroundColor = .rt.lightBlue
+        logoutButton.backgroundColor = .rt.navy
         logoutButton.tintColor = .rt.white
         logoutButton.layer.cornerRadius = 8
         self.logoutButton = logoutButton
@@ -154,3 +159,31 @@ class HomeViewController: UIViewController {
 
 }
 
+// MARK: - Preview
+
+import SwiftUI
+
+struct HomeProvider: PreviewProvider {
+    static var previews: some View {
+        let devices = ["iPhone SE3", "iPhone 14 Pro"]
+        ForEach(devices, id: \.self) { device in
+            ContainerView()
+                .previewDevice(.init(rawValue: device))
+                .previewDisplayName(device)
+                .edgesIgnoringSafeArea(.all)
+        }
+    }
+
+    struct ContainerView: UIViewControllerRepresentable {
+
+        let homeVC = HomeViewController(authModel: AuthModel(), databaseModel: DatabaseModel())
+
+        func makeUIViewController(context: UIViewControllerRepresentableContext<HomeProvider.ContainerView>) -> HomeViewController {
+            return homeVC
+        }
+
+        func updateUIViewController(_ uiViewController: HomeProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<HomeProvider.ContainerView>) {
+
+        }
+    }
+}

@@ -15,7 +15,7 @@ protocol DatabaseModelInterface {
     func getUserName(uid: String) async -> String?
 }
 
-class DatabaseModel: DatabaseModelInterface {
+struct DatabaseModel: DatabaseModelInterface {
     
     func saveUser(uid: String, name: String, email: String) async {
         

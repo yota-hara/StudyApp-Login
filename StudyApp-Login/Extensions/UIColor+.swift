@@ -17,7 +17,7 @@ extension RingTech where Base == UIColor {
 
     public static let blue = initialize(withHex: "#0000BA")!
     public static let navy = initialize(withHex: "#003366")!
-    public static let lightBlue = initialize(withHex: "2DA0FA")!
+    public static let lightBlue = initialize(withHex: "#2DA0FA")!
     public static let red = initialize(withHex: "#ff2b2b")!
     public static let yellow = initialize(withHex: "#FFD43B")!
     

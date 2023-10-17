@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .rt.gray20
+        view.backgroundColor = .rt.navy
         
         setupUI()
         addSubviews()
@@ -155,7 +155,7 @@ class LoginViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = type.title
-        titleLabel.textColor = .rt.blue
+        titleLabel.textColor = .rt.white
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
@@ -274,7 +274,7 @@ class LoginViewController: UIViewController {
     func setupLayout() {
         NSLayoutConstraint.activate([
             // titleLabel
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: 80),
             titleLabel.widthAnchor.constraint(equalToConstant: 200),
@@ -311,14 +311,6 @@ class LoginViewController: UIViewController {
                 resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
             ])
         }
-        
-        let dummy = UIView(frame: .init(x: 0, y: 264, width: 100, height: 10))
-        dummy.backgroundColor = .brown
-        view.addSubview(dummy)
-        
-        let dummy2 = UIView(frame: .init(x: 0, y: 407, width: 100, height: 10))
-        dummy2.backgroundColor = .black
-        view.addSubview(dummy2)
     }
     
     func addTargets() {
@@ -457,5 +449,34 @@ extension LoginViewController: UITextFieldDelegate {
             nextTextField.becomeFirstResponder()
         }
         return true
+    }
+}
+
+// MARK: - Preview
+
+import SwiftUI
+
+struct LoginProvider: PreviewProvider {
+    static var previews: some View {
+        let devices = ["iPhone SE3", "iPhone 14 Pro"]
+        ForEach(devices, id: \.self) { device in
+            ContainerView()
+                .previewDevice(.init(rawValue: device))
+                .previewDisplayName(device)
+                .edgesIgnoringSafeArea(.all)
+        }
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        
+        let loginVC = LoginViewController(authModel: AuthModel(), validatorModel: ValidatorModel(), type: .signup)
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<LoginProvider.ContainerView>) -> LoginViewController {
+            return loginVC
+        }
+        
+        func updateUIViewController(_ uiViewController: LoginProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<LoginProvider.ContainerView>) {
+            
+        }
     }
 }

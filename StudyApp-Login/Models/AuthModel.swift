@@ -59,7 +59,7 @@ protocol AuthModelInterface {
 
 // MARK: - AuthModel
 
-class AuthModel: AuthModelInterface {
+struct AuthModel: AuthModelInterface {
         
     let databaseModel: DatabaseModelInterface
     
@@ -107,7 +107,7 @@ class AuthModel: AuthModelInterface {
     func login(email: String, password: String) async throws {
         
         do {
-            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            try await Auth.auth().signIn(withEmail: email, password: password)
                         
         } catch {
             
