@@ -39,6 +39,9 @@ class LoginViewController: UIViewController {
     private let validatorModel: ValidatorModelInterface!
     private let type: ViewType!
     
+    // 編集中のTextFieldを保持する変数
+    private var _activeTextField: UITextField? = nil
+    
     // MARK: - UIs
     
     // textFieldsStackView（TextFieldをまとめて格納するStackView）
@@ -62,7 +65,7 @@ class LoginViewController: UIViewController {
     var resetPasswordButton: UIButton?
     
     // MARK: - Initializer
-
+    
     init(authModel: AuthModelInterface, validatorModel: ValidatorModelInterface, type: ViewType) {
         self.authModel = authModel
         self.validatorModel = validatorModel
@@ -86,6 +89,62 @@ class LoginViewController: UIViewController {
         addSubviews()
         setupLayout()
         addTargets()
+        
+        // 通知の追加
+        addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removeKeyboardNotifications()
+    }
+    
+    // 通知の追加
+    func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 通知の削除
+    func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // キーボード表示通知の処理
+    @objc func keyboardWillShowNotification(_ notification: Notification) {
+        guard let textField = _activeTextField,
+              let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+        else {
+            return
+        }
+        
+        let stackViewTop = textFieldsStackView.frame.minY
+        let textFieldBottom = stackViewTop + textField.frame.maxY
+        let keyboardTop = UIScreen.main.bounds.height - keyboardFrame.height
+
+        if keyboardTop <= textFieldBottom {
+            let transitionLength = textFieldBottom - keyboardTop
+            UIView.animate(withDuration: duration) {
+                self.view.transform = CGAffineTransform(translationX: 0, y: -transitionLength)
+            }
+        }
+    }
+    
+    // キーボード非表示通知の処理
+    @objc func keyboardWillHideNotification(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+        else {
+            return
+        }
+        
+        UIView.animate(withDuration: duration) {
+            self.view.transform = CGAffineTransform.identity
+        }
     }
     
     // MARK: - Setup
@@ -100,7 +159,7 @@ class LoginViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 60)
         self.titleLabel = titleLabel
-                
+        
         // nameTextField（signupのみ）
         if type == .signup {
             let nameTextField = UITextField()
@@ -215,7 +274,7 @@ class LoginViewController: UIViewController {
     func setupLayout() {
         NSLayoutConstraint.activate([
             // titleLabel
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: 80),
             titleLabel.widthAnchor.constraint(equalToConstant: 200),
@@ -252,6 +311,14 @@ class LoginViewController: UIViewController {
                 resetPasswordButton.widthAnchor.constraint(equalToConstant: 200),
             ])
         }
+        
+        let dummy = UIView(frame: .init(x: 0, y: 264, width: 100, height: 10))
+        dummy.backgroundColor = .brown
+        view.addSubview(dummy)
+        
+        let dummy2 = UIView(frame: .init(x: 0, y: 407, width: 100, height: 10))
+        dummy2.backgroundColor = .black
+        view.addSubview(dummy2)
     }
     
     func addTargets() {
@@ -301,7 +368,7 @@ class LoginViewController: UIViewController {
                     rt.showOneButtonAlert(title: "会員登録失敗", message: message)
                 }
             }
-
+            
         } else {
             // Auth認証
             Task {
@@ -371,6 +438,13 @@ class LoginViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 
 extension LoginViewController: UITextFieldDelegate {
+    
+    // TextFieldの編集直後に呼ばれる
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // 編集対象のTextFieldを保存する
+        _activeTextField = textField
+        return true;
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
