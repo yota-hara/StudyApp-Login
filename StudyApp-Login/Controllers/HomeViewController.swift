@@ -85,12 +85,8 @@ class HomeViewController: UIViewController {
         self.nameLabel = nameLabel
         
         // logoutButton
-        let logoutButton = UIButton(type: .system)
+        let logoutButton = TapAnimationButton(frame: .zero, title: "ログアウト", textColor: .rt.white, backgroundColor: .rt.navy)
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        logoutButton.setTitle("ログアウト", for: .normal)
-        logoutButton.backgroundColor = .rt.navy
-        logoutButton.tintColor = .rt.white
-        logoutButton.layer.cornerRadius = 8
         self.logoutButton = logoutButton
     }
     

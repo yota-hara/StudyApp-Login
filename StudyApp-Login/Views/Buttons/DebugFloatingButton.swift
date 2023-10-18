@@ -59,7 +59,7 @@ struct DebugFloatingButton_Previews: PreviewProvider {
         typealias UIViewType = DebugFloatingButton
 
         func makeUIView(context: UIViewRepresentableContext<ContainerView>) -> UIViewType {
-            let label =         DebugFloatingButton(frame: .zero, title: "Debug用ボタン")
+            let label = DebugFloatingButton(frame: .zero, title: "Debug用ボタン")
             
             return label
         }

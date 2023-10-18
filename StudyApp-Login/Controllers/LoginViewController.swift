@@ -21,6 +21,16 @@ class LoginViewController: UIViewController {
                 return "Signup"
             }
         }
+        
+        var loginButtonTitle: String {
+            switch self {
+            case .login:
+                return "ログイン"
+            case .signup:
+                return "会員登録"
+            }
+        }
+        
         var switchViewTitle: String {
             switch self {
             case .login:
@@ -234,19 +244,14 @@ class LoginViewController: UIViewController {
         self.textFieldsStackView = textFieldsStackView
         
         // loginButton
-        let loginButton = UIButton(type: .system)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("ログイン", for: .normal)
-        loginButton.backgroundColor = .rt.lightBlue
-        loginButton.tintColor = .rt.white
-        loginButton.layer.cornerRadius = 8
+        let loginButton = TapAnimationButton(frame: .zero, title: type.loginButtonTitle)
         self.loginButton = loginButton
         
         // switchViewButton
         let switchViewButton = UIButton(type: .system)
         switchViewButton.translatesAutoresizingMaskIntoConstraints = false
         switchViewButton.setTitle(type.switchViewTitle, for: .normal)
-        switchViewButton.tintColor = .rt.lightBlue
+        switchViewButton.tintColor = .rt.gray10
         self.switchViewButton = switchViewButton
         
         // resetPasswordButton（loginのみ）
@@ -254,7 +259,7 @@ class LoginViewController: UIViewController {
             let resetPasswordButton = UIButton(type: .system)
             resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
             resetPasswordButton.setTitle("パスワード再設定", for: .normal)
-            resetPasswordButton.tintColor = .rt.lightBlue
+            resetPasswordButton.tintColor = .rt.gray10
             self.resetPasswordButton = resetPasswordButton
         }
     }

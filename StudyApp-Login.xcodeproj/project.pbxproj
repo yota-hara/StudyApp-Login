@@ -27,6 +27,7 @@
 		A1B003E22ADEFA1900228768 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E12ADEFA1900228768 /* String+.swift */; };
 		A1B003E42ADF0FEF00228768 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E32ADF0FEF00228768 /* IndicatorView.swift */; };
 		A1B003E62ADF267D00228768 /* GradientAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E52ADF267D00228768 /* GradientAnimationView.swift */; };
+		A1B003E92ADF511600228768 /* TapAnimationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E82ADF511600228768 /* TapAnimationButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		A1B003E12ADEFA1900228768 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A1B003E32ADF0FEF00228768 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		A1B003E52ADF267D00228768 /* GradientAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientAnimationView.swift; sourceTree = "<group>"; };
+		A1B003E82ADF511600228768 /* TapAnimationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapAnimationButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				A1B003E52ADF267D00228768 /* GradientAnimationView.swift */,
-				A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */,
 				A1B003E32ADF0FEF00228768 /* IndicatorView.swift */,
+				A1B003E72ADF50F200228768 /* Buttons */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +138,15 @@
 				A1B003E12ADEFA1900228768 /* String+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A1B003E72ADF50F200228768 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				A1B003E82ADF511600228768 /* TapAnimationButton.swift */,
+				A1B003DF2ADE8CD500228768 /* DebugFloatingButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +233,7 @@
 				A116C1672AD925D500B1DE68 /* UIViewController+.swift in Sources */,
 				A1B003E42ADF0FEF00228768 /* IndicatorView.swift in Sources */,
 				A116C1592AD88FC600B1DE68 /* DatabaseModel.swift in Sources */,
+				A1B003E92ADF511600228768 /* TapAnimationButton.swift in Sources */,
 				A116C1652AD8D87700B1DE68 /* RingTechCompatible.swift in Sources */,
 				A116C13A2AD889C400B1DE68 /* AppDelegate.swift in Sources */,
 				A1B003E02ADE8CD500228768 /* DebugFloatingButton.swift in Sources */,
