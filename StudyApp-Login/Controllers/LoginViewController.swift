@@ -182,41 +182,37 @@ class LoginViewController: UIViewController {
         
         // nameTextField（signupのみ）
         if type == .signup {
-            let nameTextField = UITextField()
-            nameTextField.tag = 1
+            let nameTextField = RichTextField(placeholder: "アカウント名")
             nameTextField.translatesAutoresizingMaskIntoConstraints = false
-            nameTextField.placeholder = "アカウント名"
+            nameTextField.tag = 1
             nameTextField.delegate = self
-            nameTextField.borderStyle = .roundedRect
+            nameTextField.returnKeyType = .next
             self.nameTextField = nameTextField
         }
         
         // emailTextField
-        let emailTextField = UITextField()
-        emailTextField.tag = 2
+        let emailTextField = RichTextField(placeholder: "メールアドレス")
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.placeholder = "メールアドレス"
+        emailTextField.tag = 2
         emailTextField.delegate = self
-        emailTextField.borderStyle = .roundedRect
+        emailTextField.returnKeyType = .next
         self.emailTextField = emailTextField
         
         // passwordTextField
-        let passwordTextField = UITextField()
-        passwordTextField.tag = 3
+        let passwordTextField = RichTextField(placeholder: "パスワード")
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.placeholder = "パスワード"
+        passwordTextField.tag = 3
         passwordTextField.delegate = self
-        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.returnKeyType = type == .login ? .done : .next
         self.passwordTextField = passwordTextField
         
         // passwordCheckTextField（signupのみ）
         if type == .signup {
-            let passwordCheckTextField = UITextField()
-            passwordCheckTextField.tag = 4
+            let passwordCheckTextField = RichTextField(placeholder: "パスワード（確認用）")
             passwordCheckTextField.translatesAutoresizingMaskIntoConstraints = false
-            passwordCheckTextField.placeholder = "パスワード（確認用）"
+            passwordCheckTextField.tag = 4
             passwordCheckTextField.delegate = self
-            passwordCheckTextField.borderStyle = .roundedRect
+            passwordCheckTextField.returnKeyType = .done
             self.passwordCheckTextField = passwordCheckTextField
         }
         

@@ -28,6 +28,7 @@
 		A1B003E42ADF0FEF00228768 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E32ADF0FEF00228768 /* IndicatorView.swift */; };
 		A1B003E62ADF267D00228768 /* GradientAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E52ADF267D00228768 /* GradientAnimationView.swift */; };
 		A1B003E92ADF511600228768 /* TapAnimationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003E82ADF511600228768 /* TapAnimationButton.swift */; };
+		A1B003ED2ADF5F9400228768 /* RichTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B003EC2ADF5F9400228768 /* RichTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		A1B003E32ADF0FEF00228768 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		A1B003E52ADF267D00228768 /* GradientAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientAnimationView.swift; sourceTree = "<group>"; };
 		A1B003E82ADF511600228768 /* TapAnimationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapAnimationButton.swift; sourceTree = "<group>"; };
+		A1B003EC2ADF5F9400228768 /* RichTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				A1B003E52ADF267D00228768 /* GradientAnimationView.swift */,
 				A1B003E32ADF0FEF00228768 /* IndicatorView.swift */,
+				A1B003EC2ADF5F9400228768 /* RichTextField.swift */,
 				A1B003E72ADF50F200228768 /* Buttons */,
 			);
 			path = Views;
@@ -233,6 +236,7 @@
 				A116C1672AD925D500B1DE68 /* UIViewController+.swift in Sources */,
 				A1B003E42ADF0FEF00228768 /* IndicatorView.swift in Sources */,
 				A116C1592AD88FC600B1DE68 /* DatabaseModel.swift in Sources */,
+				A1B003ED2ADF5F9400228768 /* RichTextField.swift in Sources */,
 				A1B003E92ADF511600228768 /* TapAnimationButton.swift in Sources */,
 				A116C1652AD8D87700B1DE68 /* RingTechCompatible.swift in Sources */,
 				A116C13A2AD889C400B1DE68 /* AppDelegate.swift in Sources */,
