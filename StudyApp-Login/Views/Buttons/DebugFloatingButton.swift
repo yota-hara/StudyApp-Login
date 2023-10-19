@@ -14,7 +14,7 @@ class DebugFloatingButton: UIButton {
         
         translatesAutoresizingMaskIntoConstraints = false
         setTitle(title, for: .normal)
-        backgroundColor = UIColor.rt.red
+        backgroundColor = UIColor.rt.red.withAlphaComponent(0.7)
         tintColor = UIColor.rt.gray70
         layer.cornerRadius = 10
         layer.shadowColor = UIColor.rt.black.cgColor
@@ -35,7 +35,7 @@ class DebugFloatingButton: UIButton {
     
     func startAnimation() {
         UIView.animate(withDuration: 2.5, delay: 0, options: [.autoreverse, .repeat, .allowUserInteraction]) {
-            self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            self.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
             self.layer.shadowRadius = 15
         }
     }

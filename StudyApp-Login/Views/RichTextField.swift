@@ -95,6 +95,7 @@ class RichTextField: UITextField {
     func addTargets() {
         addTarget(self, action: #selector(upShiftPlaceholder), for: .editingDidBegin)
         addTarget(self, action: #selector(downShiftPlaceholder), for: .editingDidEnd)
+        addTarget(self, action: #selector(upShiftPlaceholder), for: .valueChanged)
         secureButton?.addTarget(self, action: #selector(tappedSecureButton), for: .touchUpInside)
     }
     

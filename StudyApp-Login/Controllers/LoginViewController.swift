@@ -115,6 +115,14 @@ class LoginViewController: UIViewController {
         removeKeyboardNotifications()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let gradientAnimationView = backgroundView as? GradientAnimationView {
+            gradientAnimationView.startAnimation()
+        }
+    }
+    
     // 通知の追加
     func addKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -369,6 +377,10 @@ class LoginViewController: UIViewController {
             passwordTextField.text = password
             passwordCheckTextField?.text = password
         }
+        nameTextField?.sendActions(for: .valueChanged)
+        emailTextField.sendActions(for: .valueChanged)
+        passwordTextField.sendActions(for: .valueChanged)
+        passwordCheckTextField?.sendActions(for: .valueChanged)
     }
     
     // MARK: - Actions
