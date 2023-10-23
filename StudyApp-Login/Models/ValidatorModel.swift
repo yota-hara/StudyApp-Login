@@ -7,58 +7,48 @@
 
 import Foundation
 
-// ValidationErrorを定義して各エラーに準拠させる
-protocol ValidationError: Error {}
-
 // 各エラーにエラーケースとエラーメッセージを定義
-enum NameError: ValidationError {
+enum NameError: Error {
     case empty
+    case length
     
     var message: String {
         switch self {
         case .empty:
-            return "アカウント名が未入力です"
+            return "名前を入力してください。"
+        case .length:
+            return "名前は2文字以上8文字以下で入力してください。"
         }
     }
 }
 
-enum EmailError: ValidationError, CaseIterable {
+enum EmailError: Error {
     case empty
+    case format
     
     var message: String {
         switch self {
         case .empty:
-            return "メールアドレスが未入力です"
+            return "メールアドレスを入力してください。"
+        case .format:
+            return "メールアドレスの形式が正しくありません。"
         }
     }
 }
 
-enum PasswordError: ValidationError, CaseIterable {
+enum PasswordError: Error {
+    case empty
+    case length
     case notSame
-    case empty
-
+    
     var message: String {
         switch self {
-        case .notSame:
-            return "確認用パスワードが一致しません"
         case .empty:
-            return "パスワードが未入力です"
-        }
-    }
-}
-
-// validation結果を返す型を定義
-enum ValidationResult {
-    case valid
-    // 不正時にはValidationError型の値をラップして返す
-    case invalid(ValidationError)
-    
-    var isValid: Bool {
-        switch self {
-        case .valid:
-            return true
-        case .invalid:
-            return false
+            return "パスワードを入力してください。"
+        case .length:
+            return "パスワードは6文字以上で入力してください。"
+        case .notSame:
+            return "確認用パスワードが一致しません。"
         }
     }
 }
@@ -66,40 +56,84 @@ enum ValidationResult {
 // 利用する側が実装に依存しないように、Interfaceとして切り出す
 protocol ValidatorModelInterface {
     
-    func validateName(name: String?) -> ValidationResult
-    func validateEmail(email: String?) -> ValidationResult
-    func validatePassword(password: String?, passwordForCheck: String?) -> ValidationResult
+    func validateName(name: String?) -> Result<String, NameError>
+    func validateEmail(email: String?) -> Result<String, EmailError>
+    func validatePassword(password: String?) -> Result<String, PasswordError>
+    func validatePasswordForCheck(password: String?, passwordForCheck: String?) -> Result<String, PasswordError>
 }
 
 class ValidatorModel: ValidatorModelInterface {
     
-    func validateName(name: String?) -> ValidationResult {
+    func validateName(name: String?) -> Result<String, NameError> {
         
-        guard let name = name else {
-            return .invalid(NameError.empty)
+        guard let name = name, !name.isEmpty else {
+            // nilまたは空のとき
+            return .failure(.empty)
         }
-        
-        return !name.isEmpty ? .valid : .invalid(NameError.empty)
+                
+        if name.count < 2 || name.count > 8 {
+            // 2文字未満または8文字を超えるとき
+            return .failure(.length)
+        }
+
+        return .success("OK")
     }
     
-    func validateEmail(email: String?) -> ValidationResult {
+    func validateEmail(email: String?) -> Result<String, EmailError> {
         
-        guard let email = email else {
-            return .invalid(NameError.empty)
+        guard let email = email, !email.isEmpty else {
+            // nilまたは空のとき
+            return .failure(.empty)
         }
         
-        return !email.isEmpty ? .valid : .invalid(EmailError.empty)
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let isEmailFormat = emailPredicate.evaluate(with: email)
+        
+        if !isEmailFormat {
+            // メールアドレスのフォーマットに一致しないとき
+            return .failure(.format)
+        }
+        
+        return .success("OK")
+    }
+
+    func validatePassword(password: String?) -> Result<String, PasswordError> {
+
+        guard let password = password,
+              !password.isEmpty else {
+            // passwordがnilまたは空のとき
+            return .failure(.empty)
+        }
+        
+        if password.count < 6 {
+            // 6文字未満のとき
+            return.failure(.length)
+        }
+
+        return.success("OK")
     }
     
-    func validatePassword(password: String?, passwordForCheck: String?) -> ValidationResult {
+    func validatePasswordForCheck(password: String?, passwordForCheck: String?) -> Result<String, PasswordError> {
         
         guard let password = password,
               let passwordForCheck = passwordForCheck,
               !password.isEmpty,
               !passwordForCheck.isEmpty else {
-            return .invalid(PasswordError.empty)
+            // passwordとpasswordForCheckのいずれかがnilまたは空のとき
+            return .failure(.empty)
+        }
+
+        if password != passwordForCheck {
+            // 確認用パスワードが一致しないとき
+            return .failure(.notSame)
         }
         
-        return password == passwordForCheck ? .valid : .invalid(PasswordError.notSame)
+        if password.count < 6 {
+            // 6文字未満のとき
+            return.failure(.length)
+        }
+
+        return.success("OK")
     }
 }

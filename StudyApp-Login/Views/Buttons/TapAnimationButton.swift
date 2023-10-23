@@ -11,13 +11,39 @@ class TapAnimationButton: UIButton {
     
     init(frame: CGRect, title: String, textColor: UIColor = UIColor.rt.white, backgroundColor: UIColor = UIColor.rt.blue) {
         super.init(frame: frame)
-        
         translatesAutoresizingMaskIntoConstraints = false
-        setTitle(title, for: .normal)
-        self.tintColor = textColor
-        self.backgroundColor = backgroundColor
-        layer.cornerRadius = 8
+        
+        var config = UIButton.Configuration.filled()
+        config.attributedTitle = AttributedString(title)
+        config.titleTextAttributesTransformer = .init { [weak self] _ in
+            guard let self = self else { return .init([:]) }
+            let color: UIColor = {
+                switch self.state {
+                case .disabled:
+                    return textColor.withAlphaComponent(0.5)
+                default:
+                    return textColor
+                }
+            }()
+            return .init([
+                .foregroundColor: color
+            ])
+        }
+        
+        var backgroundConfig = UIBackgroundConfiguration.clear()
+        backgroundConfig.cornerRadius = 8
+        backgroundConfig.backgroundColorTransformer = .init { [weak self] _ in
+            guard let self = self else { return .clear }
+            switch self.state {
+            case .disabled:
+                return .rt.gray50
+            default:
+                return backgroundColor
+            }
+        }
 
+        config.background = backgroundConfig
+        configuration = config
     }
     
     required init?(coder: NSCoder) {
