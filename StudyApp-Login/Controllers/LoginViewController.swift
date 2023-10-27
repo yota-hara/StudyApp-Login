@@ -599,13 +599,15 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // returnが押されたtextFieldへのフォーカスを解除（キーボードを閉じる）
-        textField.resignFirstResponder()
+
         
         let nextTag = textField.tag + 1
         if let nextTextField = self.view.viewWithTag(nextTag) {
             // 次のタグの指定するtextFieldがあればフォーカスを設定（キーボードを出す）
             nextTextField.becomeFirstResponder()
+        } else {
+            // returnが押されたtextFieldへのフォーカスを解除（キーボードを閉じる）
+            textField.resignFirstResponder()
         }
         return true
     }
